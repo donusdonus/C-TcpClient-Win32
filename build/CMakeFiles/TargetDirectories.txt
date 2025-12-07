@@ -1,0 +1,11 @@
+C:/Users/ToonA/C-TcpClient-Win32/build/CMakeFiles/app.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/CMakeFiles/edit_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/CMakeFiles/rebuild_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/lib/CMakeFiles/edit_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/lib/CMakeFiles/rebuild_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/lib/TcpClient_Win32/CMakeFiles/edit_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/lib/TcpClient_Win32/CMakeFiles/rebuild_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/lib/IPAddress/CMakeFiles/IPAddress.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/lib/IPAddress/CMakeFiles/edit_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/lib/IPAddress/CMakeFiles/rebuild_cache.dir

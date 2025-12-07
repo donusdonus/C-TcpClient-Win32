@@ -1,0 +1,2 @@
+add_library(IPAddress STATIC IPAddress.cpp)
+target_include_directories(IPAddress PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
