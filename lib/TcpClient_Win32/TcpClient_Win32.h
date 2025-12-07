@@ -7,6 +7,8 @@
 #include <stdlib.h>
 
 #include "IPAddress.h"
+#include <winsock2.h>
+#include <ws2tcpip.h>
 
 class TcpClient_Win32 {
 public:             
@@ -43,6 +45,14 @@ public:
   uint16_t remotePort();
 
 private:
+
+    WSADATA WSA = {0};
+    SOCKET _socket = INVALID_SOCKET;
+    sockaddr_in _sockaddr;
+    bool SocketReadytoUse = false;
+
+    bool Init();
+
 }; 
 #endif // __LIB__TCPCLIENT_WIN32__H
             

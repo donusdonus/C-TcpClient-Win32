@@ -2,12 +2,39 @@
 #include "TcpClient_Win32.h"
 #include "IPAddress.h"
 
+#include <winsock2.h>
+#include <ws2tcpip.h>
+
 TcpClient_Win32::TcpClient_Win32(){
 
 }
 
 TcpClient_Win32::~TcpClient_Win32(){
     
+}
+
+
+bool TcpClient_Win32::Init()
+{
+    int tmp = 0 ;
+
+    SocketReadytoUse = true;
+
+    /* Init WSA */
+    tmp = WSAStartup(MAKEWORD(2,2),&WSA);
+    if(tmp == 0)
+        SocketReadytoUse = false;
+
+    /* Create TCP Socket */
+    if(_socket == INVALID_SOCKET)
+        _socket = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+    
+    tmp = (_socket == INVALID_SOCKET);
+    if(tmp)
+        SocketReadytoUse = false;
+
+    
+    return true;
 }
 
 int TcpClient_Win32::connect(IPAddress ip, uint16_t port)

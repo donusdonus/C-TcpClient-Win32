@@ -1,1 +1,1 @@
- lib/TcpClient_Win32/libTcpClient_Win32.a lib/IPAddress/libIPAddress.a -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
+ lib/TcpClient_Win32/libTcpClient_Win32.a lib/IPAddress/libIPAddress.a -lws2_32 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
