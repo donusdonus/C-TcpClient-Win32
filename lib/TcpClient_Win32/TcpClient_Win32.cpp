@@ -2,6 +2,7 @@
 #include "TcpClient_Win32.h"
 #include "IPAddress.h"
 
+#include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
@@ -21,9 +22,7 @@ bool TcpClient_Win32::Init()
     SocketReadytoUse = true;
 
     /* Init WSA */
-    tmp = WSAStartup(MAKEWORD(2,2),&WSA);
-    if(tmp == 0)
-        SocketReadytoUse = false;
+    WSAStartup(MAKEWORD(2,2),&WSA);
 
     /* Create TCP Socket */
     if(_socket == INVALID_SOCKET)
@@ -34,11 +33,13 @@ bool TcpClient_Win32::Init()
         SocketReadytoUse = false;
 
     
-    return true;
+    return SocketReadytoUse ;
 }
+
 
 int TcpClient_Win32::connect(IPAddress ip, uint16_t port)
 {
+    
     return 0;
 }
 
@@ -47,15 +48,70 @@ int TcpClient_Win32::connect(IPAddress ip, uint16_t port, int32_t timeout_ms)
     return 0;
 }
 
+
 int TcpClient_Win32::connect(const char *host, uint16_t port)
 {
-    return 0;
+    int tmp = 0;
+    char port_str[7];
+
+    /* Connecting Host */
+    addrinfo details = {};
+    addrinfo* result = nullptr;
+    
+    /* prepare socket config */
+    _addr.sin_family = AF_INET;
+    _addr.sin_port = htons(port);
+
+    /* check is ip or hostname */
+    tmp = inet_pton(AF_INET,host,&_addr.sin_addr);
+
+    /* is not ipaddress*/
+    if(tmp == false)
+    {
+        details.ai_family = AF_INET;
+        details.ai_socktype = SOCK_STREAM;
+        sprintf(port_str,"%d",port);
+
+        /* get hostaddr */
+        tmp = getaddrinfo(host,port_str,&details,&result);
+
+        if(tmp != 0 || result == nullptr)
+        {
+            closesocket(_socket);
+            WSACleanup();
+            return 0;   
+        }
+
+        /* Copy host address */
+        memcpy(&_addr,result->ai_addr,sizeof(_addr));
+
+        /* Clear result */
+        freeaddrinfo(result);
+    }
+
+    /* Init Socket */
+    tmp = Init();
+    if(tmp == false)
+        return 0;
+
+    /* Connnecting */
+    tmp = ::connect(_socket,(sockaddr*)&_addr,sizeof(_addr));
+    if(tmp == SOCKET_ERROR)
+    {
+        closesocket(_socket);
+        WSACleanup();
+        return 0;
+    }
+
+    return 1;
 }
+
 
 int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms)
 {
     return 0;
 }
+
 
 size_t TcpClient_Win32::write(uint8_t data)
 {
@@ -64,7 +120,13 @@ size_t TcpClient_Win32::write(uint8_t data)
 
 size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
 {
-    return 0;
+    int tmp = 0 ;
+    while(tmp != size) 
+    {
+       tmp = send(_socket,(char*)buf,size,0);
+    }
+    
+    return tmp;
 }
 
 
@@ -75,16 +137,18 @@ void TcpClient_Win32::flush()
 
 int TcpClient_Win32::available()
 {
-    return 0;
+    u_long byteIncome = 0;
+
+    ioctlsocket(_socket,FIONREAD,&byteIncome);
+
+    return (int)byteIncome;
 }
 
-int TcpClient_Win32::read(uint8_t *buf, size_t size)
-{
-    return 0;
-}
 
 size_t TcpClient_Win32::readBytes(char *buffer, size_t length)
 {
+    int tmp = 0 ;
+    tmp = recv(_socket,buffer,length,0);
     return 0;
 }
 

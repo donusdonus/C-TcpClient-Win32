@@ -10,6 +10,13 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
+#define TCP_STATE_IDLE 0
+#define TCP_STATE_CONNECTING 1
+#define TCP_STATE_CONNECTED 2
+#define TCP_STATE_DISCONNECTED 3
+#define TCP_STATE_ERROR 4
+
+
 class TcpClient_Win32 {
 public:             
     TcpClient_Win32();
@@ -17,8 +24,8 @@ public:
 
   int connect(IPAddress ip, uint16_t port);
   int connect(IPAddress ip, uint16_t port, int32_t timeout_ms);
-  int connect(const char *host, uint16_t port);
   int connect(const char *host, uint16_t port, int32_t timeout_ms);
+  int connect(const char *host, uint16_t port);
   size_t write(uint8_t data);
   size_t write(const uint8_t *buf, size_t size);
 
@@ -48,7 +55,7 @@ private:
 
     WSADATA WSA = {0};
     SOCKET _socket = INVALID_SOCKET;
-    sockaddr_in _sockaddr;
+    sockaddr_in _addr {};
     bool SocketReadytoUse = false;
 
     bool Init();
