@@ -62,8 +62,11 @@ private:
     sockaddr_in _addr {};
     bool SocketReadytoUse = false;
 
-    bool Init();
-    bool Close();
+    bool init();
+    bool deinit();
+    void set_socket_mode(int mode);
+    void set_socket_timeout(int timeout_ms,void (*OnTimeout)(),void (*OnError)());
+
 
 }; 
 #endif // __LIB__TCPCLIENT_WIN32__H

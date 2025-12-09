@@ -11,11 +11,41 @@ TcpClient_Win32::TcpClient_Win32(){
 }
 
 TcpClient_Win32::~TcpClient_Win32(){
-    Close();
+    deinit();
 }
 
+void TcpClient_Win32::set_socket_mode(int mode)
+{
+    u_long tcp_block_mode = mode;
+    ioctlsocket(_socket,FIONBIO,&tcp_block_mode);
+}
 
-bool TcpClient_Win32::Init()
+void TcpClient_Win32::set_socket_timeout(int timeout_ms,void (*OnTimeout)(),void (*OnError)())
+{
+    if(_socket == INVALID_SOCKET)
+        return;
+
+    fd_set wfds;
+    timeval tv;
+    tv.tv_sec = 0;
+    tv.tv_usec = timeout_ms * 1000;
+
+    FD_ZERO(&wfds);
+    FD_SET(_socket,&wfds);
+
+    int res = select(0,NULL,&wfds,NULL,&tv);
+
+    if((res == 0) && (OnTimeout != nullptr))
+    {
+        OnTimeout();
+    }
+    else if((res == SOCKET_ERROR) && (OnError != nullptr)) 
+    {
+        OnError();
+    }
+}
+
+bool TcpClient_Win32::init()
 {
     int tmp = 0 ;
 
@@ -33,12 +63,12 @@ bool TcpClient_Win32::Init()
     return SocketReadytoUse ;
 }
 
-bool TcpClient_Win32::Close()
+bool TcpClient_Win32::deinit()
 {
     if(_socket != INVALID_SOCKET)
     {
         shutdown(_socket,SD_BOTH);
-        closesocket(_socket);
+        deinitsocket(_socket);
         _socket = INVALID_SOCKET;   
     }
     return true;
@@ -65,8 +95,8 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
     addrinfo details = {};
     addrinfo* result = nullptr;
 
-    /* Init Socket */
-    tmp = Init();
+    /* init Socket */
+    tmp = init();
     if(tmp == false)
         return 0;
 
@@ -89,7 +119,7 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
 
         if(tmp != 0 || result == nullptr)
         {
-            closesocket(_socket);
+            deinitsocket(_socket);
             return 0;   
         }
 
@@ -100,11 +130,8 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
         freeaddrinfo(result);
     }
 
-
-
     /* Enable NonBlocking */
-    tcp_block_mode = TCP_MODE_NONBLOCKING;
-    ioctlsocket(_socket,FIONBIO,(u_long*)&tcp_block_mode);
+    setsocketmode(TCP_MODE_NONBLOCKING);
 
     /* Connnecting */
     tmp = ::connect(_socket,(sockaddr*)&_addr,sizeof(_addr));
@@ -118,12 +145,11 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
         int err = WSAGetLastError();
         if((err != WSAEWOULDBLOCK)&&(err != WSAEINPROGRESS))
         {
-            Close();
-            return 0;
+            setsocketmode(TCP_MODE_BLOCKING);
+            clear();
         }
 
         /********* Process Wait Timeout ***************/
-
         fd_set wfds;
         FD_ZERO(&wfds);
         FD_SET(_socket,&wfds);
@@ -136,25 +162,26 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
         if(tmp <= 0)
         {
             // timeout error
-            Close();
-            return 0;
+            out_err = true;
         }
 
-        /********* Check Connection ***************/
-        int so_error = 0;
-        int optlen   = sizeof(so_error);
-        getsockopt(_socket, SOL_SOCKET, SO_ERROR, (char*)&so_error, &optlen);
-        if (so_error != 0)
-        {
-            // timer error
-            Close();
-            return 0;
-        }
+            /********* Check Connection ***************/
+            if(out_err == false)
+            {
+                int so_error = 0;
+                int optlen   = sizeof(so_error);
+                getsockopt(_socket, SOL_SOCKET, SO_ERROR, (char*)&so_error, &optlen);
+                if (so_error != 0)
+                {
+                    out_err = true; 
+                }
+            }
+            
+        
     }
 
     /* Disable NonBlocking */
-    tcp_block_mode = TCP_MODE_BLOCKING;
-    ioctlsocket(_socket,FIONBIO,&tcp_block_mode);
+    setsocketmode(TCP_MODE_BLOCKING);
 
     return 1;
 }
@@ -187,7 +214,7 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
         if(buffersend == 0)
         {
             cancel = true ;
-            /* Connection Close */
+            /* Connection deinit */
             //return 0 ;
         }
         else if(buffersend > 0)
@@ -198,11 +225,11 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
         else
         {
             /* Check Socket Ready */
-            //int _socket_err = WSAGetLastError();
+            int _socket_err = WSAGetLastError();
 
             /* Wait Socket Ready */
-            //if(_socket_err == WSAEWOULDBLOCK)
-            //{
+            if(_socket_err == WSAEWOULDBLOCK)
+            {
                 fd_set wfds;
                 FD_ZERO(&wfds);
                 FD_SET(_socket,&wfds);
@@ -212,9 +239,18 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
                 tv.tv_sec = 0;
                 tv.tv_usec = 100000;
 
-                select(0,NULL,&wfds,NULL,&tv);
-                tcnt+=1;
-            //}
+                int tmr =select(0,NULL,&wfds,NULL,&tv);
+                if(tmr == 0)
+                {   tcnt+=1;  }
+                else if (select < 0)
+                {   
+                    cancel = true;
+                } 
+            }
+            else 
+            {
+                cancel =true;
+            }
 
         }
 
@@ -223,6 +259,9 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
     /* Disable NonBlocking */
     tcp_block_mode = TCP_MODE_BLOCKING;
     ioctlsocket(_socket,FIONBIO,&tcp_block_mode);
+
+    if(cancel)
+        return 0; 
 
     return tmp;
 }
