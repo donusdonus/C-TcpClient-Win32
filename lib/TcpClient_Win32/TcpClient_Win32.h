@@ -65,7 +65,7 @@ private:
     bool init();
     bool deinit();
     void set_socket_mode(int mode);
-    void set_socket_timeout(int timeout_ms,void (*OnTimeout)(),void (*OnError)());
+    int set_socket_timeout(int timeout_ms);
 
 
 }; 
