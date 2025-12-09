@@ -27,14 +27,13 @@ public:
     TcpClient_Win32();
     ~TcpClient_Win32();
 
-  int connect(IPAddress ip, uint16_t port, int32_t timeout_ms = 1000);
-  int connect(const char *host, uint16_t port, int32_t timeout_ms = 1000);
-  size_t write(const uint8_t *buf, size_t size, int32_t timeout_ms = 1000);
+  int connect(IPAddress ip, uint16_t port, uint32_t timeout_ms = 1000);
+  int connect(const char *host, uint16_t port, uint32_t timeout_ms = 1000);
+  size_t write(const uint8_t *buf, size_t size, uint32_t timeout_ms = 1000);
 
   void flush();
   int available();
-  int read(uint8_t *buf, size_t size);
-  size_t readBytes(char *buffer, size_t length);
+  size_t readBytes(char *buffer, size_t length, uint32_t timeout_ms = 1000);
   size_t readBytes(uint8_t *buffer, size_t length);
   int peek();
   void clear();

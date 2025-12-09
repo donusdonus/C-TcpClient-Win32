@@ -174,16 +174,16 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size,int32_t timeout_ms
      if (_socket == INVALID_SOCKET || buf == nullptr || size == 0)
         return 0;
 
-    int tmp = 0 ;
+    int bufferWrtie = 0 ;
     int tcnt = 0;
     const int tout = 100; 
     bool cancel = false;
 
     set_socket_mode(TCP_MODE_NONBLOCKING);
 
-    while((tmp < size) && (tcnt <= 10) && (cancel != true))
+    while((bufferWrtie < size) && (tcnt <= timeout_ms) && (cancel != true))
     {
-        int buffersend = send(_socket,(char*)buf+tmp,size-tmp,0);
+        int buffersend = send(_socket,(char*)buf+bufferWrtie,size-bufferWrtie,0);
 
         /* Reference Return send(...) Keyword "WSABASEERR" */
 
@@ -196,7 +196,7 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size,int32_t timeout_ms
         else if(buffersend > 0)
         {
             /* Buffer Update */
-            tmp+=buffersend;
+            bufferWrtie+=buffersend;
         }
         else
         {
@@ -257,13 +257,64 @@ int TcpClient_Win32::available()
 }
 
 
-size_t TcpClient_Win32::readBytes(char *buffer, size_t length)
+size_t TcpClient_Win32::readBytes(char *buffer, size_t length,uint32_t timeout_ms)
 {
     if(_socket == INVALID_SOCKET)
-        return 0;
+        return -1;
 
-    int tmp = recv(_socket,buffer,length,0);
-    return tmp;
+    int bufferRead = 0;
+    uint32_t tcnt = 0;
+    bool cancel = false;
+
+    set_socket_mode(TCP_MODE_NONBLOCKING);
+
+    while( (bufferRead < length) && (cancel != true) && (tcnt < timeout_ms))    
+    {
+        int res = recv(_socket,buffer,length,0);
+
+        if(res > 0)
+        {
+            bufferRead += res;
+        }
+        else if(res == 0)
+        {
+            /* lost connection */
+            cancel = true;
+        }
+        else
+        {
+            /* Error Case  */
+            int _socket_err = WSAGetLastError();
+
+            /* socket have blocking process */
+            if(_socket_err == WSAEWOULDBLOCK)
+            {
+                int tmr_res = set_socket_timeout(timeout_ms/10);
+
+                if(tmr_res==0)
+                {
+                    tcnt+=(timeout_ms/10);
+                }
+                else if(tmr_res < 0)
+                {
+                    cancel = true;
+                }
+            }   
+            /* any error */
+            else 
+            {
+                cancel = true;
+            }         
+
+        }
+    }
+
+    set_socket_mode(TCP_MODE_BLOCKING);
+
+    if(cancel)
+        return -1;
+    
+    return bufferRead;
 }
 
 size_t TcpClient_Win32::readBytes(uint8_t *buffer, size_t length)
