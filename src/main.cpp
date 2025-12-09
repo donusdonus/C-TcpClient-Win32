@@ -11,7 +11,7 @@ int main()
     /* Enable Socket Application */
     WSAStartup(MAKEWORD(2,2),&WSA);
 
-    tcpclient.connect("192.168.122.120",80);
+    tcpclient.connect("127.0.0.1",19910);
 
     char text[50];
     int len = 0;
@@ -22,7 +22,9 @@ int main()
     Sleep(10000);
 
 
-    tcpclient.available();
+    int len_recive = tcpclient.available();
+
+    tcpclient.readBytes(&text[0],len_recive);
 
     /* Disable Socket Application */
     WSACleanup();

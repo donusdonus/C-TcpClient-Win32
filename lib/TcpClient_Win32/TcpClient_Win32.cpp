@@ -20,40 +20,39 @@ void TcpClient_Win32::set_socket_mode(int mode)
     ioctlsocket(_socket,FIONBIO,&tcp_block_mode);
 }
 
-int TcpClient_Win32::set_socket_timeout(int timeout_ms)
+int TcpClient_Win32::set_socket_timeout(uint8_t mode, int timeout_ms)
 {
     if(_socket == INVALID_SOCKET)
         return SOCKET_ERROR;
 
-    fd_set wfds;
+    fd_set fds;
     timeval tv;
+    int res = 0;
     tv.tv_sec = timeout_ms / 1000;
     tv.tv_usec = (timeout_ms % 1000) * 1000;
 
-    FD_ZERO(&wfds);
-    FD_SET(_socket,&wfds);
+    FD_ZERO(&fds);
+    FD_SET(_socket,&fds);
 
-    int res = select(0,NULL,&wfds,NULL,&tv);
+    if(mode == TCP_WRITE_TIMEOUT)
+        res = select(0,NULL,&fds,NULL,&tv);
+    else if(mode == TCP_READ_TIMEOUT)
+        res = select(0,&fds,NULL,NULL,&tv);
 
     return res; 
 }
 
 bool TcpClient_Win32::init()
 {
-    int tmp = 0 ;
-
-    SocketReadytoUse = true;
+    int res = 0 ;
 
     /* Create TCP Socket */
     if(_socket == INVALID_SOCKET)
         _socket = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
     
-    tmp = (_socket == INVALID_SOCKET);
-    if(tmp)
-        SocketReadytoUse = false;
-
+    res = (_socket == INVALID_SOCKET)? 0 : 1 ;
     
-    return SocketReadytoUse ;
+    return res;
 }
 
 bool TcpClient_Win32::deinit()
@@ -68,13 +67,13 @@ bool TcpClient_Win32::deinit()
 }
 
 
-int TcpClient_Win32::connect(IPAddress ip, uint16_t port, int32_t timeout_ms)
+int TcpClient_Win32::connect(IPAddress ip, uint16_t port)
 {
-    return 0;
+    return connect(ip.toString(),port);
 }
 
 
-int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms)
+int TcpClient_Win32::connect(const char *host, uint16_t port)
 {
     int tmp = 0;
     char port_str[7];
@@ -140,7 +139,7 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
 
         /********* Process Wait Timeout ***************/
         
-        int tmr_res = set_socket_timeout(timeout_ms);
+        int tmr_res = set_socket_timeout(TCP_WRITE_TIMEOUT,_socket_timeout_ms);
         
         if(tmr_res <= 0)
         {
@@ -160,7 +159,6 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
             deinit();
             return 0;      
         }
-
     }
 
     /* Disable NonBlocking */
@@ -169,34 +167,34 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
     return 1;
 }
 
-size_t TcpClient_Win32::write(const uint8_t *buf, size_t size,int32_t timeout_ms)
+size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
 {
      if (_socket == INVALID_SOCKET || buf == nullptr || size == 0)
         return 0;
 
-    int bufferWrtie = 0 ;
-    int tcnt = 0;
-    const int tout = 100; 
-    bool cancel = false;
+    int bufferWrite = 0 ;
+    int tcnt = 0; 
+    bool flag_cancel = false;
+    bool flag_tout = false;
 
     set_socket_mode(TCP_MODE_NONBLOCKING);
 
-    while((bufferWrtie < size) && (tcnt <= timeout_ms) && (cancel != true))
+    while((bufferWrite < size) && (flag_tout == false) && (flag_cancel == false))
     {
-        int buffersend = send(_socket,(char*)buf+bufferWrtie,size-bufferWrtie,0);
+        int buffersend = send(_socket,(char*)buf+bufferWrite,size-bufferWrite,0);
 
         /* Reference Return send(...) Keyword "WSABASEERR" */
 
         if(buffersend == 0)
         {
-            cancel = true ;
+            flag_cancel = true ;
             /* Connection deinit */
             //return 0 ;
         }
         else if(buffersend > 0)
         {
             /* Buffer Update */
-            bufferWrtie+=buffersend;
+            bufferWrite+=buffersend;
         }
         else
         {
@@ -206,21 +204,27 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size,int32_t timeout_ms
             /* Wait Socket Ready */
             if(_socket_err == WSAEWOULDBLOCK)
             {
+                if(tcnt <= _socket_timeout_ms)
+                {
+                    int tmr_res =set_socket_timeout(TCP_WRITE_TIMEOUT,_socket_timeout_ms/TCP_TIMEOUT_STEP_Milisec);
 
-                int tmr_res =set_socket_timeout(timeout_ms/10);
-
-                if(tmr_res == 0)
-                {   
-                    tcnt+=(timeout_ms/10);  
+                    if(tmr_res == 0)
+                    {   
+                        tcnt+=(_socket_timeout_ms/TCP_TIMEOUT_STEP_Milisec);  
+                    }
+                    else if (tmr_res < 0)
+                    {   
+                        flag_cancel = true;
+                    }
                 }
-                else if (tmr_res < 0)
-                {   
-                    cancel = true;
-                } 
+                else 
+                {
+                    flag_tout = true;
+                }
             }
             else 
             {
-                cancel =true;
+                flag_cancel =true;
             }
 
         }
@@ -230,19 +234,13 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size,int32_t timeout_ms
     /* Disable NonBlocking */
     set_socket_mode(TCP_MODE_BLOCKING);
 
-    if(cancel)
-        return 0; 
+    if(flag_cancel | flag_tout )
+        return -1; 
 
-    return tmp;
+    return bufferWrite;
 }
 
-
-void TcpClient_Win32::flush()
-{
-
-}
-
-int TcpClient_Win32::available()
+int32_t TcpClient_Win32::available()
 {
     u_long byteIncome = 0;
 
@@ -252,25 +250,27 @@ int TcpClient_Win32::available()
     if(ioctlsocket(_socket,FIONREAD,&byteIncome) == SOCKET_ERROR)
         return -1;
 
-    if(byteIncome > 0)
-        return (int)byteIncome;
+
+    return (int32_t)byteIncome;
+
 }
 
 
-size_t TcpClient_Win32::readBytes(char *buffer, size_t length,uint32_t timeout_ms)
+int32_t TcpClient_Win32::readBytes(char *buffer, size_t length)
 {
     if(_socket == INVALID_SOCKET)
         return -1;
 
     int bufferRead = 0;
     uint32_t tcnt = 0;
-    bool cancel = false;
+    bool flag_cancel = false;
+    bool flag_tout = false;
 
     set_socket_mode(TCP_MODE_NONBLOCKING);
 
-    while( (bufferRead < length) && (cancel != true) && (tcnt < timeout_ms))    
+    while( (bufferRead < length) && (flag_cancel == false) && (flag_tout == false))    
     {
-        int res = recv(_socket,buffer,length,0);
+        int res = recv(_socket,buffer+bufferRead,length-bufferRead,0);
 
         if(res > 0)
         {
@@ -279,7 +279,7 @@ size_t TcpClient_Win32::readBytes(char *buffer, size_t length,uint32_t timeout_m
         else if(res == 0)
         {
             /* lost connection */
-            cancel = true;
+            flag_cancel = true;
         }
         else
         {
@@ -289,21 +289,28 @@ size_t TcpClient_Win32::readBytes(char *buffer, size_t length,uint32_t timeout_m
             /* socket have blocking process */
             if(_socket_err == WSAEWOULDBLOCK)
             {
-                int tmr_res = set_socket_timeout(timeout_ms/10);
+                if(tcnt <= _socket_timeout_ms)
+                {
+                    int tmr_res = set_socket_timeout(TCP_READ_TIMEOUT,_socket_timeout_ms/TCP_TIMEOUT_STEP_Milisec);
 
-                if(tmr_res==0)
-                {
-                    tcnt+=(timeout_ms/10);
+                    if(tmr_res==0)
+                    {
+                        tcnt+=(_socket_timeout_ms/TCP_TIMEOUT_MIN_CONFIG_Milliseconds);
+                    }
+                    else if(tmr_res < 0)
+                    {
+                        flag_cancel = true;
+                    }
                 }
-                else if(tmr_res < 0)
+                else 
                 {
-                    cancel = true;
+                    flag_tout = true;
                 }
             }   
             /* any error */
             else 
             {
-                cancel = true;
+                flag_cancel = true;
             }         
 
         }
@@ -311,25 +318,28 @@ size_t TcpClient_Win32::readBytes(char *buffer, size_t length,uint32_t timeout_m
 
     set_socket_mode(TCP_MODE_BLOCKING);
 
-    if(cancel)
+    if(flag_cancel | flag_tout)
         return -1;
     
     return bufferRead;
 }
 
-size_t TcpClient_Win32::readBytes(uint8_t *buffer, size_t length)
+int32_t TcpClient_Win32::readBytes(uint8_t *buffer, size_t length)
 { 
     return readBytes((char *)buffer, length); 
 }
 
-int TcpClient_Win32::peek()
+/*
+
+void TcpClient_Win32::flush()
 {
-    return 0;
+
 }
+
 
 void TcpClient_Win32::clear()
 {
-
+    deinit();
 }
 
 void TcpClient_Win32::stop()
@@ -338,6 +348,12 @@ void TcpClient_Win32::stop()
 }
 
 uint8_t TcpClient_Win32::connected()
+{
+    return 0;
+}
+
+
+int TcpClient_Win32::peek()
 {
     return 0;
 }
@@ -366,30 +382,43 @@ int TcpClient_Win32::getOption(int option, int *value)
 {
     return 0;
 }
+*/
 
 void TcpClient_Win32::setConnectionTimeout(uint32_t milliseconds)
 {
-
-}
-
-int TcpClient_Win32::setNoDelay(bool nodelay)
-{
-    return 0;
-}
-
-bool TcpClient_Win32::getNoDelay()
-{
-    return false;
+     _socket_timeout_ms = (milliseconds > TCP_TIMEOUT_MIN_CONFIG_Milliseconds)? milliseconds : TCP_TIMEOUT_MIN_CONFIG_Milliseconds;
 }
 
 IPAddress TcpClient_Win32::remoteIP()
 {
-    return IPAddress(0);
+    if (_socket == INVALID_SOCKET)
+        return IPAddress(0);
+
+    sockaddr_in addr;
+    int addr_len = sizeof(addr);
+
+    if (getpeername(_socket, (sockaddr*)&addr, &addr_len) == SOCKET_ERROR)
+        return IPAddress(0);
+
+    uint32_t ip_raw = ntohl(addr.sin_addr.s_addr);
+
+    return IPAddress(ip_raw);
+
 }
 
 uint16_t TcpClient_Win32::remotePort()
 {
-    return 0 ;
+    if (_socket == INVALID_SOCKET)
+        return 0;
+
+    sockaddr_in addr;
+    int addr_len = sizeof(addr);
+
+    if (getpeername(_socket, (sockaddr*)&addr, &addr_len) == SOCKET_ERROR)
+        return 0;
+
+    return ntohs(addr.sin_port);
+    
 }
 
         
