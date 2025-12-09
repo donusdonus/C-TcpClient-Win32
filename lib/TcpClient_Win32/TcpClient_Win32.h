@@ -16,6 +16,11 @@
 #define TCP_STATE_DISCONNECTED 3
 #define TCP_STATE_ERROR 4
 
+#define TCP_MODE_BLOCKING 0
+#define TCP_MODE_NONBLOCKING 1
+
+#define TCPCLIENT_TIMEOUT_CONNECITON_MS 5000
+
 
 class TcpClient_Win32 {
 public:             
@@ -53,6 +58,7 @@ public:
 
 private:
 
+    u_long tcp_block_mode = TCP_MODE_BLOCKING;
     SOCKET _socket = INVALID_SOCKET;
     sockaddr_in _addr {};
     bool SocketReadytoUse = false;

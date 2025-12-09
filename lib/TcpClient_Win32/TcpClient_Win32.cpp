@@ -21,8 +21,6 @@ bool TcpClient_Win32::Init()
 
     SocketReadytoUse = true;
 
-
-
     /* Create TCP Socket */
     if(_socket == INVALID_SOCKET)
         _socket = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
@@ -102,13 +100,61 @@ int TcpClient_Win32::connect(const char *host, uint16_t port)
         freeaddrinfo(result);
     }
 
+    /* Enable NonBlocking */
+    tcp_block_mode = TCP_MODE_NONBLOCKING;
+    ioctlsocket(_socket,FIONBIO,(u_long*)&tcp_block_mode);
+
     /* Connnecting */
     tmp = ::connect(_socket,(sockaddr*)&_addr,sizeof(_addr));
-    if(tmp == SOCKET_ERROR)
+
+    if(tmp == 0) 
     {
-        closesocket(_socket);
-        return 0;
+        /* Connected */
     }
+    else
+    {
+        /* Check Some Error */
+        int err = WSAGetLastError();
+        if((err != WSAEWOULDBLOCK)&&(err != WSAEINPROGRESS))
+        {
+            Close();
+            return 0;
+        }
+
+        /********* Process Wait Timeout ***************/
+
+        fd_set wfds;
+        FD_ZERO(&wfds);
+        FD_SET(_socket,&wfds);
+
+        timeval tv;
+        tv.tv_sec = TCPCLIENT_TIMEOUT_CONNECITON_MS;
+        tv.tv_usec = 0;
+
+        tmp = select(0,NULL,&wfds,NULL,&tv);
+        if(tmp <= 0)
+        {
+            // timeout or select error
+            Close();
+            return 0;
+        }
+
+        /********* Check Connection Complete ***************/
+        int so_error = 0;
+        int optlen   = sizeof(so_error);
+        getsockopt(_socket, SOL_SOCKET, SO_ERROR, (char*)&so_error, &optlen);
+        if (so_error != 0)
+        {
+            // ต่อไม่ติด
+            Close();
+            return 0;
+        }
+    }
+
+    /* Disable NonBlocking */
+    tcp_block_mode = TCP_MODE_BLOCKING;
+    ioctlsocket(_socket,FIONBIO,&tcp_block_mode);
+
 
     return 1;
 }
