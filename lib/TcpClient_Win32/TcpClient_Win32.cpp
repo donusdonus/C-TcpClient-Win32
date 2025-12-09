@@ -100,6 +100,8 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
         freeaddrinfo(result);
     }
 
+
+
     /* Enable NonBlocking */
     tcp_block_mode = TCP_MODE_NONBLOCKING;
     ioctlsocket(_socket,FIONBIO,(u_long*)&tcp_block_mode);
@@ -133,18 +135,18 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
         tmp = select(0,NULL,&wfds,NULL,&tv);
         if(tmp <= 0)
         {
-            // timeout or select error
+            // timeout error
             Close();
             return 0;
         }
 
-        /********* Check Connection Complete ***************/
+        /********* Check Connection ***************/
         int so_error = 0;
         int optlen   = sizeof(so_error);
         getsockopt(_socket, SOL_SOCKET, SO_ERROR, (char*)&so_error, &optlen);
         if (so_error != 0)
         {
-            // ต่อไม่ติด
+            // timer error
             Close();
             return 0;
         }
@@ -153,7 +155,6 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
     /* Disable NonBlocking */
     tcp_block_mode = TCP_MODE_BLOCKING;
     ioctlsocket(_socket,FIONBIO,&tcp_block_mode);
-
 
     return 1;
 }
@@ -165,11 +166,63 @@ size_t TcpClient_Win32::write(uint8_t data)
 
 size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
 {
+     if (_socket == INVALID_SOCKET || buf == nullptr || size == 0)
+        return 0;
+
     int tmp = 0 ;
-    while(tmp != size) 
+    int tcnt = 0;
+    const int tout = 100; 
+    bool cancel = false;
+
+    /* Enable NonBlocking */
+    tcp_block_mode = TCP_MODE_NONBLOCKING;
+    ioctlsocket(_socket,FIONBIO,(u_long*)&tcp_block_mode);
+
+    while((tmp < size) && (tcnt <= 10) && (cancel != true))
     {
-       tmp = send(_socket,(char*)buf,size,0);
+        int buffersend = send(_socket,(char*)buf+tmp,size-tmp,0);
+
+        /* Reference Return send(...) Keyword "WSABASEERR" */
+
+        if(buffersend == 0)
+        {
+            cancel = true ;
+            /* Connection Close */
+            //return 0 ;
+        }
+        else if(buffersend > 0)
+        {
+            /* Buffer Update */
+            tmp+=buffersend;
+        }
+        else
+        {
+            /* Check Socket Ready */
+            //int _socket_err = WSAGetLastError();
+
+            /* Wait Socket Ready */
+            //if(_socket_err == WSAEWOULDBLOCK)
+            //{
+                fd_set wfds;
+                FD_ZERO(&wfds);
+                FD_SET(_socket,&wfds);
+
+                timeval tv;
+                /* Check Interval 100 ms */
+                tv.tv_sec = 0;
+                tv.tv_usec = 100000;
+
+                select(0,NULL,&wfds,NULL,&tv);
+                tcnt+=1;
+            //}
+
+        }
+
     }
+
+    /* Disable NonBlocking */
+    tcp_block_mode = TCP_MODE_BLOCKING;
+    ioctlsocket(_socket,FIONBIO,&tcp_block_mode);
 
     return tmp;
 }
