@@ -56,7 +56,7 @@ int TcpClient_Win32::connect(IPAddress ip, uint16_t port, int32_t timeout_ms)
 }
 
 
-int TcpClient_Win32::connect(const char *host, uint16_t port)
+int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms = 1000)
 {
     int tmp = 0;
     char port_str[7];
@@ -157,13 +157,6 @@ int TcpClient_Win32::connect(const char *host, uint16_t port)
 
     return 1;
 }
-
-
-int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms)
-{
-    return 0;
-}
-
 
 size_t TcpClient_Win32::write(uint8_t data)
 {

@@ -29,8 +29,7 @@ public:
 
   int connect(IPAddress ip, uint16_t port);
   int connect(IPAddress ip, uint16_t port, int32_t timeout_ms);
-  int connect(const char *host, uint16_t port, int32_t timeout_ms);
-  int connect(const char *host, uint16_t port);
+  int connect(const char *host, uint16_t port, int32_t timeout_ms = 1000);
   size_t write(uint8_t data);
   size_t write(const uint8_t *buf, size_t size);
 
