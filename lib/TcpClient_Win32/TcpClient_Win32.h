@@ -70,3 +70,34 @@ private:
 }; 
 #endif // __LIB__TCPCLIENT_WIN32__H
             
+/*
+
+Future for FREERTOS Version adding Guard protect race condition 
+by multi call difference function in class
+
+class SemaphoreGuard {
+public:
+    SemaphoreGuard(SemaphoreHandle_t sem, TickType_t timeout = portMAX_DELAY)
+        : _sem(sem), _taken(false)
+    {
+        if (_sem) {
+            if (xSemaphoreTake(_sem, timeout) == pdTRUE) {
+                _taken = true;
+            }
+        }
+    }
+
+    ~SemaphoreGuard() {
+        if (_sem && _taken) {
+            xSemaphoreGive(_sem);
+        }
+    }
+
+    bool ok() const { return _taken; }
+
+private:
+    SemaphoreHandle_t _sem;
+    bool _taken;
+};
+
+*/

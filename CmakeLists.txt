@@ -19,12 +19,18 @@ add_executable(app
 src/main.cpp
 )
 
+
 #message(STATUS "----------- Root Path Debug ---------------")
 #message(STATUS "Path Project = ${PROJECT_SOURCE_DIR}")
 #message(STATUS "Path CMake = ${CMAKE_CURRENT_SOURCE_DIR}")
 #message(STATUS "Path FreeRTOS = ${freertos_SOURCE_DIR}")
 #message(STATUS "--------------------------------------------")
 
+target_include_directories(app PRIVATE
+  ${freertos_SOURCE_DIR}/include
+  ${freertos_SOURCE_DIR}/portable/MSVC-MingW
+  ${CMAKE_CURRENT_SOURCE_DIR}
+)
 
 target_link_libraries(app
 PRIVATE

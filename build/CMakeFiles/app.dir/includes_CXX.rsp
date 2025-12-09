@@ -1,1 +1,1 @@
--I"C:/Users/ToonA/C-TcpClient-Win32/lib/TcpClient_Win32" -I"C:/Users/ToonA/C-TcpClient-Win32/lib/IPAddress"
+-I/include -I"/portable/MSVC-MingW" -I"C:/Users/ToonA/C-TcpClient-Win32" -I"C:/Users/ToonA/C-TcpClient-Win32/lib/TcpClient_Win32" -I"C:/Users/ToonA/C-TcpClient-Win32/lib/IPAddress"
