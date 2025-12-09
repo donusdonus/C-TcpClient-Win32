@@ -67,11 +67,6 @@ bool TcpClient_Win32::deinit()
     return true;
 }
 
-int TcpClient_Win32::connect(IPAddress ip, uint16_t port)
-{
-    
-    return 0;
-}
 
 int TcpClient_Win32::connect(IPAddress ip, uint16_t port, int32_t timeout_ms)
 {
@@ -79,7 +74,7 @@ int TcpClient_Win32::connect(IPAddress ip, uint16_t port, int32_t timeout_ms)
 }
 
 
-int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms = 1000)
+int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms)
 {
     int tmp = 0;
     char port_str[7];
@@ -112,7 +107,6 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
 
         if(tmp != 0 || result == nullptr)
         {
-            set_socket_mode(TCP_MODE_NONBLOCKING);
             deinit();
             return 0;   
         }
@@ -125,7 +119,7 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
     }
 
     /* Enable NonBlocking */
-    
+    set_socket_mode(TCP_MODE_NONBLOCKING);
 
     /* Connnecting */
     tmp = ::connect(_socket,(sockaddr*)&_addr,sizeof(_addr));
@@ -146,7 +140,7 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
 
         /********* Process Wait Timeout ***************/
         
-        int tmr_res = set_socket_timeout(TCPCLIENT_TIMEOUT_CONNECITON);
+        int tmr_res = set_socket_timeout(timeout_ms);
         
         if(tmr_res <= 0)
         {
@@ -175,12 +169,7 @@ int TcpClient_Win32::connect(const char *host, uint16_t port, int32_t timeout_ms
     return 1;
 }
 
-size_t TcpClient_Win32::write(uint8_t data)
-{
-    return 0;
-}
-
-size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
+size_t TcpClient_Win32::write(const uint8_t *buf, size_t size,int32_t timeout_ms)
 {
      if (_socket == INVALID_SOCKET || buf == nullptr || size == 0)
         return 0;
@@ -190,9 +179,7 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
     const int tout = 100; 
     bool cancel = false;
 
-    /* Enable NonBlocking */
-    tcp_block_mode = TCP_MODE_NONBLOCKING;
-    ioctlsocket(_socket,FIONBIO,(u_long*)&tcp_block_mode);
+    set_socket_mode(TCP_MODE_NONBLOCKING);
 
     while((tmp < size) && (tcnt <= 10) && (cancel != true))
     {
@@ -219,15 +206,12 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
             /* Wait Socket Ready */
             if(_socket_err == WSAEWOULDBLOCK)
             {
-                fd_set wfds;
-                FD_ZERO(&wfds);
-                FD_SET(_socket,&wfds);
 
-                int tmr_res =set_socket_timeout(100);
+                int tmr_res =set_socket_timeout(timeout_ms/10);
 
                 if(tmr_res == 0)
                 {   
-                    tcnt+=1;  
+                    tcnt+=(timeout_ms/10);  
                 }
                 else if (tmr_res < 0)
                 {   
@@ -244,8 +228,7 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
     }
 
     /* Disable NonBlocking */
-    tcp_block_mode = TCP_MODE_BLOCKING;
-    ioctlsocket(_socket,FIONBIO,&tcp_block_mode);
+    set_socket_mode(TCP_MODE_BLOCKING);
 
     if(cancel)
         return 0; 
@@ -266,9 +249,11 @@ int TcpClient_Win32::available()
     if(_socket == INVALID_SOCKET)
         return 0;
 
-    ioctlsocket(_socket,FIONREAD,&byteIncome);
+    if(ioctlsocket(_socket,FIONREAD,&byteIncome) == SOCKET_ERROR)
+        return -1;
 
-    return (int)byteIncome;
+    if(byteIncome > 0)
+        return (int)byteIncome;
 }
 
 

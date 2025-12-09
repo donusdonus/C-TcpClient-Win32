@@ -27,11 +27,9 @@ public:
     TcpClient_Win32();
     ~TcpClient_Win32();
 
-  int connect(IPAddress ip, uint16_t port);
-  int connect(IPAddress ip, uint16_t port, int32_t timeout_ms);
+  int connect(IPAddress ip, uint16_t port, int32_t timeout_ms = 1000);
   int connect(const char *host, uint16_t port, int32_t timeout_ms = 1000);
-  size_t write(uint8_t data);
-  size_t write(const uint8_t *buf, size_t size);
+  size_t write(const uint8_t *buf, size_t size, int32_t timeout_ms = 1000);
 
   void flush();
   int available();
