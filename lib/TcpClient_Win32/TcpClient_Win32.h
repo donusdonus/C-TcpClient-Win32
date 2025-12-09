@@ -53,12 +53,12 @@ public:
 
 private:
 
-    WSADATA WSA = {0};
     SOCKET _socket = INVALID_SOCKET;
     sockaddr_in _addr {};
     bool SocketReadytoUse = false;
 
     bool Init();
+    bool Close();
 
 }; 
 #endif // __LIB__TCPCLIENT_WIN32__H

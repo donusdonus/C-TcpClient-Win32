@@ -2,14 +2,16 @@
 #include <stdio.h>
 #include "TcpClient_Win32.h"
 
+WSADATA WSA = {0};
+
+TcpClient_Win32 tcpclient;
 
 int main()
 {
-    printf("Hello World");
+    /* Enable Socket Application */
+    WSAStartup(MAKEWORD(2,2),&WSA);
 
-    TcpClient_Win32 tcpclient;
-
-    tcpclient.connect("127.0.0.1",1991);
+    tcpclient.connect("httpbin.org",80);
 
     char text[50];
     int len = 0;
@@ -21,6 +23,9 @@ int main()
 
 
     tcpclient.available();
+
+    /* Disable Socket Application */
+    WSACleanup();
 
     return 0;
 }

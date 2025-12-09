@@ -11,7 +11,7 @@ TcpClient_Win32::TcpClient_Win32(){
 }
 
 TcpClient_Win32::~TcpClient_Win32(){
-    
+    Close();
 }
 
 
@@ -21,8 +21,7 @@ bool TcpClient_Win32::Init()
 
     SocketReadytoUse = true;
 
-    /* Init WSA */
-    WSAStartup(MAKEWORD(2,2),&WSA);
+
 
     /* Create TCP Socket */
     if(_socket == INVALID_SOCKET)
@@ -36,6 +35,16 @@ bool TcpClient_Win32::Init()
     return SocketReadytoUse ;
 }
 
+bool TcpClient_Win32::Close()
+{
+    if(_socket != INVALID_SOCKET)
+    {
+        shutdown(_socket,SD_BOTH);
+        closesocket(_socket);
+        _socket = INVALID_SOCKET;   
+    }
+    return true;
+}
 
 int TcpClient_Win32::connect(IPAddress ip, uint16_t port)
 {
@@ -57,7 +66,12 @@ int TcpClient_Win32::connect(const char *host, uint16_t port)
     /* Connecting Host */
     addrinfo details = {};
     addrinfo* result = nullptr;
-    
+
+    /* Init Socket */
+    tmp = Init();
+    if(tmp == false)
+        return 0;
+
     /* prepare socket config */
     _addr.sin_family = AF_INET;
     _addr.sin_port = htons(port);
@@ -78,7 +92,6 @@ int TcpClient_Win32::connect(const char *host, uint16_t port)
         if(tmp != 0 || result == nullptr)
         {
             closesocket(_socket);
-            WSACleanup();
             return 0;   
         }
 
@@ -89,17 +102,11 @@ int TcpClient_Win32::connect(const char *host, uint16_t port)
         freeaddrinfo(result);
     }
 
-    /* Init Socket */
-    tmp = Init();
-    if(tmp == false)
-        return 0;
-
     /* Connnecting */
     tmp = ::connect(_socket,(sockaddr*)&_addr,sizeof(_addr));
     if(tmp == SOCKET_ERROR)
     {
         closesocket(_socket);
-        WSACleanup();
         return 0;
     }
 
@@ -125,7 +132,7 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
     {
        tmp = send(_socket,(char*)buf,size,0);
     }
-    
+
     return tmp;
 }
 
