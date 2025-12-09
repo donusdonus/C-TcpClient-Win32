@@ -11,7 +11,7 @@ int main()
     /* Enable Socket Application */
     WSAStartup(MAKEWORD(2,2),&WSA);
 
-    tcpclient.connect("httpbin.org",80);
+    tcpclient.connect("192.168.122.120",80);
 
     char text[50];
     int len = 0;

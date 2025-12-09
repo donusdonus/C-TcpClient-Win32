@@ -106,7 +106,6 @@ int TcpClient_Win32::connect(const char *host, uint16_t port)
 
     /* Connnecting */
     tmp = ::connect(_socket,(sockaddr*)&_addr,sizeof(_addr));
-
     if(tmp == 0) 
     {
         /* Connected */
@@ -128,7 +127,7 @@ int TcpClient_Win32::connect(const char *host, uint16_t port)
         FD_SET(_socket,&wfds);
 
         timeval tv;
-        tv.tv_sec = TCPCLIENT_TIMEOUT_CONNECITON_MS;
+        tv.tv_sec = TCPCLIENT_TIMEOUT_CONNECITON;
         tv.tv_usec = 0;
 
         tmp = select(0,NULL,&wfds,NULL,&tv);
