@@ -21,11 +21,11 @@ void TcpClient_Win32::set_socket_mode(int mode)
 
     u_long tcp_block_mode = mode;
 
-    __TCP_CLIENT_START__BLOCK__
+    __TCP_CLIENT_START__BLOCK__(blocking)
 
     ioctlsocket(_socket, FIONBIO, &tcp_block_mode);
 
-    __TCP_CLIENT_END__BLOCK__
+    __TCP_CLIENT_END__BLOCK__(blocking)
 
 }
 
@@ -42,7 +42,7 @@ int TcpClient_Win32::set_socket_timeout(uint8_t mode, int timeout_ms)
     tv.tv_sec = timeout_ms / 1000;
     tv.tv_usec = (timeout_ms % 1000) * 1000;
 
-    __TCP_CLIENT_START__BLOCK__
+    __TCP_CLIENT_START__BLOCK__(blocking)
 
     FD_ZERO(&fds);
     FD_SET(_socket, &fds);
@@ -52,7 +52,7 @@ int TcpClient_Win32::set_socket_timeout(uint8_t mode, int timeout_ms)
     else if (mode == TCP_READ_TIMEOUT)
         res = select(0, &fds, NULL, NULL, &tv);
 
-    __TCP_CLIENT_END__BLOCK__
+    __TCP_CLIENT_END__BLOCK__(blocking)
 
     return res;
 }
@@ -68,9 +68,9 @@ bool TcpClient_Win32::init()
     deinit();
     //}
 
-    __TCP_CLIENT_START__BLOCK__
+    __TCP_CLIENT_START__BLOCK__(blocking)
     _socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    __TCP_CLIENT_END__BLOCK__
+    __TCP_CLIENT_END__BLOCK__(blocking)
 
     res = (_socket == INVALID_SOCKET) ? 0 : 1;
 
@@ -83,10 +83,10 @@ bool TcpClient_Win32::deinit()
     // if(_socket != INVALID_SOCKET)
     //{
 
-    __TCP_CLIENT_START__BLOCK__
+    __TCP_CLIENT_START__BLOCK__(blocking)
     shutdown(_socket, SD_BOTH);
     closesocket(_socket);
-    __TCP_CLIENT_END__BLOCK__
+    __TCP_CLIENT_END__BLOCK__(blocking)
 
     _socket = INVALID_SOCKET;
     _state_connection = TCP_STATE_DISCONNECTED;
@@ -120,9 +120,9 @@ int TcpClient_Win32::connect(const char *host, uint16_t port)
     _addr.sin_port = htons(port);
 
     /* check is ip or hostname */
-    __TCP_CLIENT_START__BLOCK__
+    __TCP_CLIENT_START__BLOCK__(blocking)
     tmp = inet_pton(AF_INET, host, &_addr.sin_addr);
-    __TCP_CLIENT_END__BLOCK__
+    __TCP_CLIENT_END__BLOCK__(blocking)
 
     /* is not ipaddress*/
     if (tmp == false)
@@ -132,9 +132,9 @@ int TcpClient_Win32::connect(const char *host, uint16_t port)
         sprintf(port_str, "%d", port);
 
         /* get hostaddr */
-        __TCP_CLIENT_START__BLOCK__
+        __TCP_CLIENT_START__BLOCK__(blocking)
         tmp = getaddrinfo(host, port_str, &details, &result);
-        __TCP_CLIENT_END__BLOCK__
+        __TCP_CLIENT_END__BLOCK__(blocking)
 
         if (tmp != 0 || result == nullptr)
         {
@@ -146,18 +146,18 @@ int TcpClient_Win32::connect(const char *host, uint16_t port)
         memcpy(&_addr, result->ai_addr, sizeof(_addr));
 
         /* Clear result */
-        __TCP_CLIENT_START__BLOCK__
+        __TCP_CLIENT_START__BLOCK__(blocking)
         freeaddrinfo(result);
-        __TCP_CLIENT_END__BLOCK__
+        __TCP_CLIENT_END__BLOCK__(blocking)
     }
 
     /* Enable NonBlocking */
     set_socket_mode(TCP_MODE_NONBLOCKING);
 
     /* Connnecting */
-    __TCP_CLIENT_START__BLOCK__
+    __TCP_CLIENT_START__BLOCK__(blocking)
     tmp = ::connect(_socket, (sockaddr *)&_addr, sizeof(_addr));
-    __TCP_CLIENT_END__BLOCK__
+    __TCP_CLIENT_END__BLOCK__(blocking)
 
     if (tmp == 0)
     {
@@ -190,9 +190,9 @@ int TcpClient_Win32::connect(const char *host, uint16_t port)
         int so_error = 0;
         int optlen = sizeof(so_error);
         
-        __TCP_CLIENT_START__BLOCK__
+        __TCP_CLIENT_START__BLOCK__(blocking)
         getsockopt(_socket, SOL_SOCKET, SO_ERROR, (char *)&so_error, &optlen);
-        __TCP_CLIENT_END__BLOCK__
+        __TCP_CLIENT_END__BLOCK__(blocking)
 
         if (so_error != 0)
         {
@@ -228,9 +228,9 @@ size_t TcpClient_Win32::write(const uint8_t *buf, size_t size)
     {
         int res = 0;
 
-        __TCP_CLIENT_START__BLOCK__
+        __TCP_CLIENT_START__BLOCK__(blocking)
           res = send(_socket, (char *)buf + bufferWrite, size - bufferWrite, 0);
-        __TCP_CLIENT_END__BLOCK__
+        __TCP_CLIENT_END__BLOCK__(blocking)
 
         /* Reference Return send(...) Keyword "WSABASEERR" */
 
@@ -298,10 +298,10 @@ int32_t TcpClient_Win32::available()
         return 0;
 
     
-    __TCP_CLIENT_START__BLOCK__
+    __TCP_CLIENT_START__BLOCK__(blocking)
     if (ioctlsocket(_socket, FIONREAD, &byteIncome) == SOCKET_ERROR)
         return -1;
-    __TCP_CLIENT_END__BLOCK__
+    __TCP_CLIENT_END__BLOCK__(blocking)
 
     return (int32_t)byteIncome;
 }
@@ -324,9 +324,9 @@ int32_t TcpClient_Win32::readBytes(char *buffer, size_t length)
     {
         int res = 0;
 
-        __TCP_CLIENT_START__BLOCK__
+        __TCP_CLIENT_START__BLOCK__(blocking)
           res = recv(_socket, buffer + bufferRead, length - bufferRead, 0);
-        __TCP_CLIENT_END__BLOCK__
+        __TCP_CLIENT_END__BLOCK__(blocking)
 
         if (res > 0)
         {

@@ -18,8 +18,8 @@
 #include "semphr.h"
 #include "portmacro.h"
 #define __TCP_CLIENT_MAXTIME_BLOCKING portMAX_DELAY
-#define __TCP_CLIENT_START__BLOCK__ if(xSemaphoreTake(blocking,__TCP_CLIENT_MAXTIME_BLOCKING) == pdTRUE){ 
-#define __TCP_CLIENT_END__BLOCK__ xSemaphoreGive(blocking);}
+#define __TCP_CLIENT_START__BLOCK__(semaphr) if(xSemaphoreTake(semaphr,__TCP_CLIENT_MAXTIME_BLOCKING) == pdTRUE){ 
+#define __TCP_CLIENT_END__BLOCK__(semaphr) xSemaphoreGive(semaphr);}
 //#define __TPC_CLIENT_END_BLOCK__(s)  xSemaphoreGive(_Blocking);}
 #else
 #define __TCP_CLIENT_START__BLOCK__
