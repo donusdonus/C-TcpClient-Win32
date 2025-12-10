@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

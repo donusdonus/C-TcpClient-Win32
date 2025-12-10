@@ -153,6 +153,126 @@ TcpClient_Win32.cpp.s:
 	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/TcpClient_Win32.cpp.s
 .PHONY : TcpClient_Win32.cpp.s
 
+__/__/_deps/freertos-src/list.obj: __/__/_deps/freertos-src/list.c.obj
+.PHONY : __/__/_deps/freertos-src/list.obj
+
+# target to build an object file
+__/__/_deps/freertos-src/list.c.obj:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/list.c.obj
+.PHONY : __/__/_deps/freertos-src/list.c.obj
+
+__/__/_deps/freertos-src/list.i: __/__/_deps/freertos-src/list.c.i
+.PHONY : __/__/_deps/freertos-src/list.i
+
+# target to preprocess a source file
+__/__/_deps/freertos-src/list.c.i:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/list.c.i
+.PHONY : __/__/_deps/freertos-src/list.c.i
+
+__/__/_deps/freertos-src/list.s: __/__/_deps/freertos-src/list.c.s
+.PHONY : __/__/_deps/freertos-src/list.s
+
+# target to generate assembly for a file
+__/__/_deps/freertos-src/list.c.s:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/list.c.s
+.PHONY : __/__/_deps/freertos-src/list.c.s
+
+__/__/_deps/freertos-src/portable/MSVC-MingW/port.obj: __/__/_deps/freertos-src/portable/MSVC-MingW/port.c.obj
+.PHONY : __/__/_deps/freertos-src/portable/MSVC-MingW/port.obj
+
+# target to build an object file
+__/__/_deps/freertos-src/portable/MSVC-MingW/port.c.obj:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/portable/MSVC-MingW/port.c.obj
+.PHONY : __/__/_deps/freertos-src/portable/MSVC-MingW/port.c.obj
+
+__/__/_deps/freertos-src/portable/MSVC-MingW/port.i: __/__/_deps/freertos-src/portable/MSVC-MingW/port.c.i
+.PHONY : __/__/_deps/freertos-src/portable/MSVC-MingW/port.i
+
+# target to preprocess a source file
+__/__/_deps/freertos-src/portable/MSVC-MingW/port.c.i:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/portable/MSVC-MingW/port.c.i
+.PHONY : __/__/_deps/freertos-src/portable/MSVC-MingW/port.c.i
+
+__/__/_deps/freertos-src/portable/MSVC-MingW/port.s: __/__/_deps/freertos-src/portable/MSVC-MingW/port.c.s
+.PHONY : __/__/_deps/freertos-src/portable/MSVC-MingW/port.s
+
+# target to generate assembly for a file
+__/__/_deps/freertos-src/portable/MSVC-MingW/port.c.s:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/portable/MSVC-MingW/port.c.s
+.PHONY : __/__/_deps/freertos-src/portable/MSVC-MingW/port.c.s
+
+__/__/_deps/freertos-src/queue.obj: __/__/_deps/freertos-src/queue.c.obj
+.PHONY : __/__/_deps/freertos-src/queue.obj
+
+# target to build an object file
+__/__/_deps/freertos-src/queue.c.obj:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/queue.c.obj
+.PHONY : __/__/_deps/freertos-src/queue.c.obj
+
+__/__/_deps/freertos-src/queue.i: __/__/_deps/freertos-src/queue.c.i
+.PHONY : __/__/_deps/freertos-src/queue.i
+
+# target to preprocess a source file
+__/__/_deps/freertos-src/queue.c.i:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/queue.c.i
+.PHONY : __/__/_deps/freertos-src/queue.c.i
+
+__/__/_deps/freertos-src/queue.s: __/__/_deps/freertos-src/queue.c.s
+.PHONY : __/__/_deps/freertos-src/queue.s
+
+# target to generate assembly for a file
+__/__/_deps/freertos-src/queue.c.s:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/queue.c.s
+.PHONY : __/__/_deps/freertos-src/queue.c.s
+
+__/__/_deps/freertos-src/tasks.obj: __/__/_deps/freertos-src/tasks.c.obj
+.PHONY : __/__/_deps/freertos-src/tasks.obj
+
+# target to build an object file
+__/__/_deps/freertos-src/tasks.c.obj:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/tasks.c.obj
+.PHONY : __/__/_deps/freertos-src/tasks.c.obj
+
+__/__/_deps/freertos-src/tasks.i: __/__/_deps/freertos-src/tasks.c.i
+.PHONY : __/__/_deps/freertos-src/tasks.i
+
+# target to preprocess a source file
+__/__/_deps/freertos-src/tasks.c.i:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/tasks.c.i
+.PHONY : __/__/_deps/freertos-src/tasks.c.i
+
+__/__/_deps/freertos-src/tasks.s: __/__/_deps/freertos-src/tasks.c.s
+.PHONY : __/__/_deps/freertos-src/tasks.s
+
+# target to generate assembly for a file
+__/__/_deps/freertos-src/tasks.c.s:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/tasks.c.s
+.PHONY : __/__/_deps/freertos-src/tasks.c.s
+
+__/__/_deps/freertos-src/timers.obj: __/__/_deps/freertos-src/timers.c.obj
+.PHONY : __/__/_deps/freertos-src/timers.obj
+
+# target to build an object file
+__/__/_deps/freertos-src/timers.c.obj:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/timers.c.obj
+.PHONY : __/__/_deps/freertos-src/timers.c.obj
+
+__/__/_deps/freertos-src/timers.i: __/__/_deps/freertos-src/timers.c.i
+.PHONY : __/__/_deps/freertos-src/timers.i
+
+# target to preprocess a source file
+__/__/_deps/freertos-src/timers.c.i:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/timers.c.i
+.PHONY : __/__/_deps/freertos-src/timers.c.i
+
+__/__/_deps/freertos-src/timers.s: __/__/_deps/freertos-src/timers.c.s
+.PHONY : __/__/_deps/freertos-src/timers.s
+
+# target to generate assembly for a file
+__/__/_deps/freertos-src/timers.c.s:
+	cd /d C:\Users\ToonA\C-TcpClient-Win32\build && $(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/timers.c.s
+.PHONY : __/__/_deps/freertos-src/timers.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -165,6 +285,21 @@ help:
 	@echo ... TcpClient_Win32.obj
 	@echo ... TcpClient_Win32.i
 	@echo ... TcpClient_Win32.s
+	@echo ... __/__/_deps/freertos-src/list.obj
+	@echo ... __/__/_deps/freertos-src/list.i
+	@echo ... __/__/_deps/freertos-src/list.s
+	@echo ... __/__/_deps/freertos-src/portable/MSVC-MingW/port.obj
+	@echo ... __/__/_deps/freertos-src/portable/MSVC-MingW/port.i
+	@echo ... __/__/_deps/freertos-src/portable/MSVC-MingW/port.s
+	@echo ... __/__/_deps/freertos-src/queue.obj
+	@echo ... __/__/_deps/freertos-src/queue.i
+	@echo ... __/__/_deps/freertos-src/queue.s
+	@echo ... __/__/_deps/freertos-src/tasks.obj
+	@echo ... __/__/_deps/freertos-src/tasks.i
+	@echo ... __/__/_deps/freertos-src/tasks.s
+	@echo ... __/__/_deps/freertos-src/timers.obj
+	@echo ... __/__/_deps/freertos-src/timers.i
+	@echo ... __/__/_deps/freertos-src/timers.s
 .PHONY : help
 
 

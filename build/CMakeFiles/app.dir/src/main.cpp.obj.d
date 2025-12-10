@@ -156,4 +156,17 @@ CMakeFiles/app.dir/src/main.cpp.obj: \
  C:/msys64/mingw32/include/qos.h C:/msys64/mingw32/include/ws2tcpip.h \
  C:/msys64/mingw32/include/ws2ipdef.h C:/msys64/mingw32/include/in6addr.h \
  C:/msys64/mingw32/include/psdk_inc/_ip_mreq1.h \
- C:/msys64/mingw32/include/mstcpip.h
+ C:/msys64/mingw32/include/mstcpip.h \
+ C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-src/include/FreeRTOS.h \
+ C:/Users/ToonA/C-TcpClient-Win32/FreeRTOSConfig.h \
+ C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-src/include/projdefs.h \
+ C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-src/include/portable.h \
+ C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-src/include/deprecated_definitions.h \
+ C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-src/portable/MSVC-MingW/portmacro.h \
+ C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-src/include/mpu_wrappers.h \
+ C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-src/include/task.h \
+ C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-src/include/list.h \
+ C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-src/include/queue.h \
+ C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-src/include/task.h \
+ C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-src/include/semphr.h \
+ C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-src/include/queue.h

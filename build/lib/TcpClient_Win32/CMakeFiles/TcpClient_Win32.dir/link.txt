@@ -1,2 +1,2 @@
-C:\msys64\mingw32\bin\ar.exe qc libTcpClient_Win32.a CMakeFiles/TcpClient_Win32.dir/TcpClient_Win32.cpp.obj
+C:\msys64\mingw32\bin\ar.exe qc libTcpClient_Win32.a CMakeFiles/TcpClient_Win32.dir/TcpClient_Win32.cpp.obj "CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/list.c.obj" "CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/queue.c.obj" "CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/tasks.c.obj" "CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/timers.c.obj" "CMakeFiles/TcpClient_Win32.dir/__/__/_deps/freertos-src/portable/MSVC-MingW/port.c.obj"
 C:\msys64\mingw32\bin\ranlib.exe libTcpClient_Win32.a

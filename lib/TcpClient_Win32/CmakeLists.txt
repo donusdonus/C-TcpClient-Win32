@@ -8,3 +8,35 @@ target_link_libraries(TcpClient_Win32 PUBLIC
     ws2_32
 )
 
+# include FreeRTOS
+target_include_directories(TcpClient_Win32 PRIVATE
+        ${freertos_SOURCE_DIR}/include
+        ${freertos_SOURCE_DIR}/portable/MSVC-MingW
+        ${PROJECT_SOURCE_DIR}           # ที่เก็บ FreeRTOSConfig.h (ของคุณอยู่ root)
+)
+
+# link FreeRTOS source files เฉพาะที่ต้องใช้
+target_sources(TcpClient_Win32 PRIVATE
+    ${freertos_SOURCE_DIR}/list.c
+    ${freertos_SOURCE_DIR}/queue.c
+    ${freertos_SOURCE_DIR}/tasks.c
+    ${freertos_SOURCE_DIR}/timers.c
+
+    # Windows (MSVC/MinGW) port
+    ${freertos_SOURCE_DIR}/portable/MSVC-MingW/port.c
+
+    # Linux port
+    #${freertos_SOURCE_DIR}/portable/ThirdParty/GCC/Posix/port.c
+)
+
+# เพื่อให้ lib เห็น config header
+target_compile_definitions(TcpClient_Win32 PRIVATE
+    projCOVERAGE_TEST=0
+    FREERTOS_USE_POSIX_PORT=1
+)
+
+message(STATUS "----------- TcpClient_Win32 ---------------")
+message(STATUS "Path Project = ${PROJECT_SOURCE_DIR}")
+message(STATUS "Path CMake = ${CMAKE_CURRENT_SOURCE_DIR}")
+message(STATUS "Path FreeRTOS = ${freertos_SOURCE_DIR}")
+message(STATUS "--------------------------------------------")

@@ -241,5 +241,5 @@ Contributions are welcome. Please ensure code follows the existing style and con
 
 ## Author
 
-Created by: donusdonus
+Created by: Natthapong Sukkleang
 Repository: https://github.com/donusdonus/C-TcpClient-Win32

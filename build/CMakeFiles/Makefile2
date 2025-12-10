@@ -63,22 +63,90 @@ CMAKE_BINARY_DIR = C:\Users\ToonA\C-TcpClient-Win32\build
 
 # The main recursive "all" target.
 all: CMakeFiles/app.dir/all
+all: _deps/freertos-build/all
 all: lib/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/app.dir/codegen
+codegen: _deps/freertos-build/codegen
 codegen: lib/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
+preinstall: _deps/freertos-build/preinstall
 preinstall: lib/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: CMakeFiles/app.dir/clean
+clean: _deps/freertos-build/clean
 clean: lib/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory _deps/freertos-build
+
+# Recursive "all" directory target.
+_deps/freertos-build/all: _deps/freertos-build/CMakeFiles/freertos_kernel.dir/all
+_deps/freertos-build/all: _deps/freertos-build/include/all
+_deps/freertos-build/all: _deps/freertos-build/portable/all
+.PHONY : _deps/freertos-build/all
+
+# Recursive "codegen" directory target.
+_deps/freertos-build/codegen: _deps/freertos-build/CMakeFiles/freertos_kernel.dir/codegen
+_deps/freertos-build/codegen: _deps/freertos-build/include/codegen
+_deps/freertos-build/codegen: _deps/freertos-build/portable/codegen
+.PHONY : _deps/freertos-build/codegen
+
+# Recursive "preinstall" directory target.
+_deps/freertos-build/preinstall: _deps/freertos-build/include/preinstall
+_deps/freertos-build/preinstall: _deps/freertos-build/portable/preinstall
+.PHONY : _deps/freertos-build/preinstall
+
+# Recursive "clean" directory target.
+_deps/freertos-build/clean: _deps/freertos-build/CMakeFiles/freertos_kernel.dir/clean
+_deps/freertos-build/clean: _deps/freertos-build/include/clean
+_deps/freertos-build/clean: _deps/freertos-build/portable/clean
+.PHONY : _deps/freertos-build/clean
+
+#=============================================================================
+# Directory level rules for directory _deps/freertos-build/include
+
+# Recursive "all" directory target.
+_deps/freertos-build/include/all:
+.PHONY : _deps/freertos-build/include/all
+
+# Recursive "codegen" directory target.
+_deps/freertos-build/include/codegen:
+.PHONY : _deps/freertos-build/include/codegen
+
+# Recursive "preinstall" directory target.
+_deps/freertos-build/include/preinstall:
+.PHONY : _deps/freertos-build/include/preinstall
+
+# Recursive "clean" directory target.
+_deps/freertos-build/include/clean:
+.PHONY : _deps/freertos-build/include/clean
+
+#=============================================================================
+# Directory level rules for directory _deps/freertos-build/portable
+
+# Recursive "all" directory target.
+_deps/freertos-build/portable/all: _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/all
+.PHONY : _deps/freertos-build/portable/all
+
+# Recursive "codegen" directory target.
+_deps/freertos-build/portable/codegen: _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/codegen
+.PHONY : _deps/freertos-build/portable/codegen
+
+# Recursive "preinstall" directory target.
+_deps/freertos-build/portable/preinstall:
+.PHONY : _deps/freertos-build/portable/preinstall
+
+# Recursive "clean" directory target.
+_deps/freertos-build/portable/clean: _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/clean
+.PHONY : _deps/freertos-build/portable/clean
 
 #=============================================================================
 # Directory level rules for directory lib
@@ -145,16 +213,18 @@ lib/TcpClient_Win32/clean: lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/cl
 # Target rules for target CMakeFiles/app.dir
 
 # All Build rule for target.
-CMakeFiles/app.dir/all: lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/all
 CMakeFiles/app.dir/all: lib/IPAddress/CMakeFiles/IPAddress.dir/all
+CMakeFiles/app.dir/all: lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/all
+CMakeFiles/app.dir/all: _deps/freertos-build/CMakeFiles/freertos_kernel.dir/all
+CMakeFiles/app.dir/all: _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\app.dir\build.make CMakeFiles/app.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\app.dir\build.make CMakeFiles/app.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=5,6 "Built target app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=10,11,12,13,14,15,16,17,18 "Built target app"
 .PHONY : CMakeFiles/app.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/app.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles 27
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/app.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles 0
 .PHONY : CMakeFiles/app.dir/rule
@@ -166,7 +236,7 @@ app: CMakeFiles/app.dir/rule
 # codegen rule for target.
 CMakeFiles/app.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\app.dir\build.make CMakeFiles/app.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=5,6 "Finished codegen for target app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=10,11,12,13,14,15,16,17,18 "Finished codegen for target app"
 .PHONY : CMakeFiles/app.dir/codegen
 
 # clean rule for target.
@@ -175,18 +245,82 @@ CMakeFiles/app.dir/clean:
 .PHONY : CMakeFiles/app.dir/clean
 
 #=============================================================================
+# Target rules for target _deps/freertos-build/CMakeFiles/freertos_kernel.dir
+
+# All Build rule for target.
+_deps/freertos-build/CMakeFiles/freertos_kernel.dir/all: _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/all
+	$(MAKE) $(MAKESILENT) -f _deps\freertos-build\CMakeFiles\freertos_kernel.dir\build.make _deps/freertos-build/CMakeFiles/freertos_kernel.dir/depend
+	$(MAKE) $(MAKESILENT) -f _deps\freertos-build\CMakeFiles\freertos_kernel.dir\build.make _deps/freertos-build/CMakeFiles/freertos_kernel.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=19,20,21,22,23,24,25,26 "Built target freertos_kernel"
+.PHONY : _deps/freertos-build/CMakeFiles/freertos_kernel.dir/all
+
+# Build rule for subdir invocation for target.
+_deps/freertos-build/CMakeFiles/freertos_kernel.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles 9
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 _deps/freertos-build/CMakeFiles/freertos_kernel.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles 0
+.PHONY : _deps/freertos-build/CMakeFiles/freertos_kernel.dir/rule
+
+# Convenience name for target.
+freertos_kernel: _deps/freertos-build/CMakeFiles/freertos_kernel.dir/rule
+.PHONY : freertos_kernel
+
+# codegen rule for target.
+_deps/freertos-build/CMakeFiles/freertos_kernel.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f _deps\freertos-build\CMakeFiles\freertos_kernel.dir\build.make _deps/freertos-build/CMakeFiles/freertos_kernel.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=19,20,21,22,23,24,25,26 "Finished codegen for target freertos_kernel"
+.PHONY : _deps/freertos-build/CMakeFiles/freertos_kernel.dir/codegen
+
+# clean rule for target.
+_deps/freertos-build/CMakeFiles/freertos_kernel.dir/clean:
+	$(MAKE) $(MAKESILENT) -f _deps\freertos-build\CMakeFiles\freertos_kernel.dir\build.make _deps/freertos-build/CMakeFiles/freertos_kernel.dir/clean
+.PHONY : _deps/freertos-build/CMakeFiles/freertos_kernel.dir/clean
+
+#=============================================================================
+# Target rules for target _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir
+
+# All Build rule for target.
+_deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/all:
+	$(MAKE) $(MAKESILENT) -f _deps\freertos-build\portable\CMakeFiles\freertos_kernel_port.dir\build.make _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/depend
+	$(MAKE) $(MAKESILENT) -f _deps\freertos-build\portable\CMakeFiles\freertos_kernel_port.dir\build.make _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=27 "Built target freertos_kernel_port"
+.PHONY : _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/all
+
+# Build rule for subdir invocation for target.
+_deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles 1
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles 0
+.PHONY : _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/rule
+
+# Convenience name for target.
+freertos_kernel_port: _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/rule
+.PHONY : freertos_kernel_port
+
+# codegen rule for target.
+_deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f _deps\freertos-build\portable\CMakeFiles\freertos_kernel_port.dir\build.make _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=27 "Finished codegen for target freertos_kernel_port"
+.PHONY : _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/codegen
+
+# clean rule for target.
+_deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/clean:
+	$(MAKE) $(MAKESILENT) -f _deps\freertos-build\portable\CMakeFiles\freertos_kernel_port.dir\build.make _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/clean
+.PHONY : _deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir/clean
+
+#=============================================================================
 # Target rules for target lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir
 
 # All Build rule for target.
 lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/all: lib/IPAddress/CMakeFiles/IPAddress.dir/all
 	$(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/depend
 	$(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=3,4 "Built target TcpClient_Win32"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=3,4,5,6,7,8,9 "Built target TcpClient_Win32"
 .PHONY : lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/all
 
 # Build rule for subdir invocation for target.
 lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles 9
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles 0
 .PHONY : lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/rule
@@ -198,7 +332,7 @@ TcpClient_Win32: lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/rule
 # codegen rule for target.
 lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f lib\TcpClient_Win32\CMakeFiles\TcpClient_Win32.dir\build.make lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=3,4 "Finished codegen for target TcpClient_Win32"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=3,4,5,6,7,8,9 "Finished codegen for target TcpClient_Win32"
 .PHONY : lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir/codegen
 
 # clean rule for target.

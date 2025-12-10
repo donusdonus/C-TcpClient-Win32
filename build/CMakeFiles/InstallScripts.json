@@ -2,6 +2,9 @@
 	"InstallScripts" : 
 	[
 		"C:/Users/ToonA/C-TcpClient-Win32/build/cmake_install.cmake",
+		"C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-build/cmake_install.cmake",
+		"C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-build/include/cmake_install.cmake",
+		"C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-build/portable/cmake_install.cmake",
 		"C:/Users/ToonA/C-TcpClient-Win32/build/lib/cmake_install.cmake",
 		"C:/Users/ToonA/C-TcpClient-Win32/build/lib/TcpClient_Win32/cmake_install.cmake",
 		"C:/Users/ToonA/C-TcpClient-Win32/build/lib/IPAddress/cmake_install.cmake"

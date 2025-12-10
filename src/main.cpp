@@ -16,30 +16,41 @@ int main()
 
     printf("Software Started\r\n\r\n");
     
-    tcpclient.connect("127.0.0.1",19910);
-
     while(1)
     {
-       printf("Send Data : ");
-       fgets(input,sizeof(input),stdin);
-       inputBuffer = strlen(input);
-       printf("User Input Buffer : %d Bytes\n",inputBuffer);
-       tcpclient.write((uint8_t*)&input[0],inputBuffer);
 
-       Sleep(5000);
+            tcpclient.connect("127.0.0.1",19910);
 
-        bufferRecived = tcpclient.available();
-        if(bufferRecived > 0)
-        {
-            uint8_t data[bufferRecived];
-            memset(&data[0],0x00,bufferRecived);
-            tcpclient.readBytes(&data[0],bufferRecived);
-            printf("Recived %d Bytes : ",bufferRecived);
+            if(tcpclient.connected() == TCP_STATE_CONNECTED)
+            {
+                printf("Connected to Server\r\n");
+                printf("Send Data : ");
+                fgets(input,sizeof(input),stdin);
+                inputBuffer = strlen(input);
+                printf("User Input Buffer : %d Bytes\n",inputBuffer);
+                tcpclient.write((uint8_t*)&input[0],inputBuffer);
 
-            for(auto i = 0 ; i < bufferRecived ; i++)
-                printf("%c",data[i]);
+                Sleep(5000);
 
-            printf("\r\n");
+                bufferRecived = tcpclient.available();
+                if(bufferRecived > 0)
+                {
+                    uint8_t data[bufferRecived];
+                    memset(&data[0],0x00,bufferRecived);
+                    tcpclient.readBytes(&data[0],bufferRecived);
+                    printf("Recived %d Bytes : ",bufferRecived);
+
+                    for(auto i = 0 ; i < bufferRecived ; i++)
+                        printf("%c",data[i]);
+
+                    printf("\r\n");
+            }
+            else 
+            {
+                printf("Cannot Connect to Server\r\n");
+            }
+
+            Sleep(100);
         }
 
     }

@@ -1,0 +1,3 @@
+C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-subbuild/CMakeFiles/freertos-populate.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-subbuild/CMakeFiles/rebuild_cache.dir

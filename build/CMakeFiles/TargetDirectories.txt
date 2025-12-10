@@ -1,6 +1,14 @@
 C:/Users/ToonA/C-TcpClient-Win32/build/CMakeFiles/app.dir
 C:/Users/ToonA/C-TcpClient-Win32/build/CMakeFiles/edit_cache.dir
 C:/Users/ToonA/C-TcpClient-Win32/build/CMakeFiles/rebuild_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-build/CMakeFiles/freertos_kernel.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-build/CMakeFiles/edit_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-build/CMakeFiles/rebuild_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-build/include/CMakeFiles/edit_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-build/include/CMakeFiles/rebuild_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-build/portable/CMakeFiles/freertos_kernel_port.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-build/portable/CMakeFiles/edit_cache.dir
+C:/Users/ToonA/C-TcpClient-Win32/build/_deps/freertos-build/portable/CMakeFiles/rebuild_cache.dir
 C:/Users/ToonA/C-TcpClient-Win32/build/lib/CMakeFiles/edit_cache.dir
 C:/Users/ToonA/C-TcpClient-Win32/build/lib/CMakeFiles/rebuild_cache.dir
 C:/Users/ToonA/C-TcpClient-Win32/build/lib/TcpClient_Win32/CMakeFiles/TcpClient_Win32.dir

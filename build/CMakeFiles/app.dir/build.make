@@ -86,21 +86,141 @@ CMakeFiles/app.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/app.dir/src/main.cpp.s"
 	C:\msys64\mingw32\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\ToonA\C-TcpClient-Win32\src\main.cpp -o CMakeFiles\app.dir\src\main.cpp.s
 
+CMakeFiles/app.dir/_deps/freertos-src/list.c.obj: CMakeFiles/app.dir/flags.make
+CMakeFiles/app.dir/_deps/freertos-src/list.c.obj: CMakeFiles/app.dir/includes_C.rsp
+CMakeFiles/app.dir/_deps/freertos-src/list.c.obj: _deps/freertos-src/list.c
+CMakeFiles/app.dir/_deps/freertos-src/list.c.obj: CMakeFiles/app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/app.dir/_deps/freertos-src/list.c.obj"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/app.dir/_deps/freertos-src/list.c.obj -MF CMakeFiles\app.dir\_deps\freertos-src\list.c.obj.d -o CMakeFiles\app.dir\_deps\freertos-src\list.c.obj -c C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\list.c
+
+CMakeFiles/app.dir/_deps/freertos-src/list.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/app.dir/_deps/freertos-src/list.c.i"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\list.c > CMakeFiles\app.dir\_deps\freertos-src\list.c.i
+
+CMakeFiles/app.dir/_deps/freertos-src/list.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/app.dir/_deps/freertos-src/list.c.s"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\list.c -o CMakeFiles\app.dir\_deps\freertos-src\list.c.s
+
+CMakeFiles/app.dir/_deps/freertos-src/queue.c.obj: CMakeFiles/app.dir/flags.make
+CMakeFiles/app.dir/_deps/freertos-src/queue.c.obj: CMakeFiles/app.dir/includes_C.rsp
+CMakeFiles/app.dir/_deps/freertos-src/queue.c.obj: _deps/freertos-src/queue.c
+CMakeFiles/app.dir/_deps/freertos-src/queue.c.obj: CMakeFiles/app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/app.dir/_deps/freertos-src/queue.c.obj"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/app.dir/_deps/freertos-src/queue.c.obj -MF CMakeFiles\app.dir\_deps\freertos-src\queue.c.obj.d -o CMakeFiles\app.dir\_deps\freertos-src\queue.c.obj -c C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\queue.c
+
+CMakeFiles/app.dir/_deps/freertos-src/queue.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/app.dir/_deps/freertos-src/queue.c.i"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\queue.c > CMakeFiles\app.dir\_deps\freertos-src\queue.c.i
+
+CMakeFiles/app.dir/_deps/freertos-src/queue.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/app.dir/_deps/freertos-src/queue.c.s"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\queue.c -o CMakeFiles\app.dir\_deps\freertos-src\queue.c.s
+
+CMakeFiles/app.dir/_deps/freertos-src/tasks.c.obj: CMakeFiles/app.dir/flags.make
+CMakeFiles/app.dir/_deps/freertos-src/tasks.c.obj: CMakeFiles/app.dir/includes_C.rsp
+CMakeFiles/app.dir/_deps/freertos-src/tasks.c.obj: _deps/freertos-src/tasks.c
+CMakeFiles/app.dir/_deps/freertos-src/tasks.c.obj: CMakeFiles/app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/app.dir/_deps/freertos-src/tasks.c.obj"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/app.dir/_deps/freertos-src/tasks.c.obj -MF CMakeFiles\app.dir\_deps\freertos-src\tasks.c.obj.d -o CMakeFiles\app.dir\_deps\freertos-src\tasks.c.obj -c C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\tasks.c
+
+CMakeFiles/app.dir/_deps/freertos-src/tasks.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/app.dir/_deps/freertos-src/tasks.c.i"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\tasks.c > CMakeFiles\app.dir\_deps\freertos-src\tasks.c.i
+
+CMakeFiles/app.dir/_deps/freertos-src/tasks.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/app.dir/_deps/freertos-src/tasks.c.s"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\tasks.c -o CMakeFiles\app.dir\_deps\freertos-src\tasks.c.s
+
+CMakeFiles/app.dir/_deps/freertos-src/timers.c.obj: CMakeFiles/app.dir/flags.make
+CMakeFiles/app.dir/_deps/freertos-src/timers.c.obj: CMakeFiles/app.dir/includes_C.rsp
+CMakeFiles/app.dir/_deps/freertos-src/timers.c.obj: _deps/freertos-src/timers.c
+CMakeFiles/app.dir/_deps/freertos-src/timers.c.obj: CMakeFiles/app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/app.dir/_deps/freertos-src/timers.c.obj"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/app.dir/_deps/freertos-src/timers.c.obj -MF CMakeFiles\app.dir\_deps\freertos-src\timers.c.obj.d -o CMakeFiles\app.dir\_deps\freertos-src\timers.c.obj -c C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\timers.c
+
+CMakeFiles/app.dir/_deps/freertos-src/timers.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/app.dir/_deps/freertos-src/timers.c.i"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\timers.c > CMakeFiles\app.dir\_deps\freertos-src\timers.c.i
+
+CMakeFiles/app.dir/_deps/freertos-src/timers.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/app.dir/_deps/freertos-src/timers.c.s"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\timers.c -o CMakeFiles\app.dir\_deps\freertos-src\timers.c.s
+
+CMakeFiles/app.dir/_deps/freertos-src/event_groups.c.obj: CMakeFiles/app.dir/flags.make
+CMakeFiles/app.dir/_deps/freertos-src/event_groups.c.obj: CMakeFiles/app.dir/includes_C.rsp
+CMakeFiles/app.dir/_deps/freertos-src/event_groups.c.obj: _deps/freertos-src/event_groups.c
+CMakeFiles/app.dir/_deps/freertos-src/event_groups.c.obj: CMakeFiles/app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/app.dir/_deps/freertos-src/event_groups.c.obj"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/app.dir/_deps/freertos-src/event_groups.c.obj -MF CMakeFiles\app.dir\_deps\freertos-src\event_groups.c.obj.d -o CMakeFiles\app.dir\_deps\freertos-src\event_groups.c.obj -c C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\event_groups.c
+
+CMakeFiles/app.dir/_deps/freertos-src/event_groups.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/app.dir/_deps/freertos-src/event_groups.c.i"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\event_groups.c > CMakeFiles\app.dir\_deps\freertos-src\event_groups.c.i
+
+CMakeFiles/app.dir/_deps/freertos-src/event_groups.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/app.dir/_deps/freertos-src/event_groups.c.s"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\event_groups.c -o CMakeFiles\app.dir\_deps\freertos-src\event_groups.c.s
+
+CMakeFiles/app.dir/_deps/freertos-src/portable/MemMang/heap_4.c.obj: CMakeFiles/app.dir/flags.make
+CMakeFiles/app.dir/_deps/freertos-src/portable/MemMang/heap_4.c.obj: CMakeFiles/app.dir/includes_C.rsp
+CMakeFiles/app.dir/_deps/freertos-src/portable/MemMang/heap_4.c.obj: _deps/freertos-src/portable/MemMang/heap_4.c
+CMakeFiles/app.dir/_deps/freertos-src/portable/MemMang/heap_4.c.obj: CMakeFiles/app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/app.dir/_deps/freertos-src/portable/MemMang/heap_4.c.obj"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/app.dir/_deps/freertos-src/portable/MemMang/heap_4.c.obj -MF CMakeFiles\app.dir\_deps\freertos-src\portable\MemMang\heap_4.c.obj.d -o CMakeFiles\app.dir\_deps\freertos-src\portable\MemMang\heap_4.c.obj -c C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\portable\MemMang\heap_4.c
+
+CMakeFiles/app.dir/_deps/freertos-src/portable/MemMang/heap_4.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/app.dir/_deps/freertos-src/portable/MemMang/heap_4.c.i"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\portable\MemMang\heap_4.c > CMakeFiles\app.dir\_deps\freertos-src\portable\MemMang\heap_4.c.i
+
+CMakeFiles/app.dir/_deps/freertos-src/portable/MemMang/heap_4.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/app.dir/_deps/freertos-src/portable/MemMang/heap_4.c.s"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\portable\MemMang\heap_4.c -o CMakeFiles\app.dir\_deps\freertos-src\portable\MemMang\heap_4.c.s
+
+CMakeFiles/app.dir/_deps/freertos-src/portable/MSVC-MingW/port.c.obj: CMakeFiles/app.dir/flags.make
+CMakeFiles/app.dir/_deps/freertos-src/portable/MSVC-MingW/port.c.obj: CMakeFiles/app.dir/includes_C.rsp
+CMakeFiles/app.dir/_deps/freertos-src/portable/MSVC-MingW/port.c.obj: _deps/freertos-src/portable/MSVC-MingW/port.c
+CMakeFiles/app.dir/_deps/freertos-src/portable/MSVC-MingW/port.c.obj: CMakeFiles/app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/app.dir/_deps/freertos-src/portable/MSVC-MingW/port.c.obj"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/app.dir/_deps/freertos-src/portable/MSVC-MingW/port.c.obj -MF CMakeFiles\app.dir\_deps\freertos-src\portable\MSVC-MingW\port.c.obj.d -o CMakeFiles\app.dir\_deps\freertos-src\portable\MSVC-MingW\port.c.obj -c C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\portable\MSVC-MingW\port.c
+
+CMakeFiles/app.dir/_deps/freertos-src/portable/MSVC-MingW/port.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/app.dir/_deps/freertos-src/portable/MSVC-MingW/port.c.i"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\portable\MSVC-MingW\port.c > CMakeFiles\app.dir\_deps\freertos-src\portable\MSVC-MingW\port.c.i
+
+CMakeFiles/app.dir/_deps/freertos-src/portable/MSVC-MingW/port.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/app.dir/_deps/freertos-src/portable/MSVC-MingW/port.c.s"
+	C:\msys64\mingw32\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\ToonA\C-TcpClient-Win32\build\_deps\freertos-src\portable\MSVC-MingW\port.c -o CMakeFiles\app.dir\_deps\freertos-src\portable\MSVC-MingW\port.c.s
+
 # Object files for target app
 app_OBJECTS = \
-"CMakeFiles/app.dir/src/main.cpp.obj"
+"CMakeFiles/app.dir/src/main.cpp.obj" \
+"CMakeFiles/app.dir/_deps/freertos-src/list.c.obj" \
+"CMakeFiles/app.dir/_deps/freertos-src/queue.c.obj" \
+"CMakeFiles/app.dir/_deps/freertos-src/tasks.c.obj" \
+"CMakeFiles/app.dir/_deps/freertos-src/timers.c.obj" \
+"CMakeFiles/app.dir/_deps/freertos-src/event_groups.c.obj" \
+"CMakeFiles/app.dir/_deps/freertos-src/portable/MemMang/heap_4.c.obj" \
+"CMakeFiles/app.dir/_deps/freertos-src/portable/MSVC-MingW/port.c.obj"
 
 # External object files for target app
 app_EXTERNAL_OBJECTS =
 
 app.exe: CMakeFiles/app.dir/src/main.cpp.obj
+app.exe: CMakeFiles/app.dir/_deps/freertos-src/list.c.obj
+app.exe: CMakeFiles/app.dir/_deps/freertos-src/queue.c.obj
+app.exe: CMakeFiles/app.dir/_deps/freertos-src/tasks.c.obj
+app.exe: CMakeFiles/app.dir/_deps/freertos-src/timers.c.obj
+app.exe: CMakeFiles/app.dir/_deps/freertos-src/event_groups.c.obj
+app.exe: CMakeFiles/app.dir/_deps/freertos-src/portable/MemMang/heap_4.c.obj
+app.exe: CMakeFiles/app.dir/_deps/freertos-src/portable/MSVC-MingW/port.c.obj
 app.exe: CMakeFiles/app.dir/build.make
 app.exe: lib/TcpClient_Win32/libTcpClient_Win32.a
 app.exe: lib/IPAddress/libIPAddress.a
+app.exe: _deps/freertos-build/libfreertos_kernel.a
 app.exe: CMakeFiles/app.dir/linkLibs.rsp
 app.exe: CMakeFiles/app.dir/objects1.rsp
 app.exe: CMakeFiles/app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable app.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\ToonA\C-TcpClient-Win32\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable app.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\app.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
